@@ -24,7 +24,7 @@ class PGVector(BaseANN):
             raise RuntimeError(f"unknown metric {metric}")
 
     def fit(self, X):
-        conn = psycopg.connect(user="ubuntu", password="ann", dbname="ann", host="/tmp", autocommit=True)
+        conn = psycopg.connect(host = "10.33.0.9", user="super", password="12", dbname="ann", autocommit=True)
         pgvector.psycopg.register_vector(conn)
         cur = conn.cursor()
         self._cur = cur
