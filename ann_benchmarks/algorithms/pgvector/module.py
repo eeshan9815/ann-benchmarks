@@ -21,8 +21,8 @@ class PGVector(BaseANN):
             raise RuntimeError(f"unknown metric {metric}")
 
     def fit(self, X):
-        subprocess.run("service postgresql start", shell=True, check=True, stdout=sys.stdout, stderr=sys.stderr)
-        conn = psycopg.connect(user="ann", password="ann", dbname="ann")
+        #subprocess.run("service postgresql start", shell=True, check=True, stdout=sys.stdout, stderr=sys.stderr)
+        conn = psycopg.connect(host = "10.33.0.9", user="super", password="12", dbname="ann")
         pgvector.psycopg.register_vector(conn)
         cur = conn.cursor()
         cur.execute("CREATE TABLE items (id int, embedding vector(%d))" % X.shape[1])
@@ -47,7 +47,7 @@ class PGVector(BaseANN):
         self._probes = probes
         self._cur.execute("SET ivfflat.probes = %d" % probes)
         # TODO set based on available memory
-        self._cur.execute("SET work_mem = '256MB'")
+        self._cur.execute("SET work_mem = '4GB'")
         # disable parallel query execution
         self._cur.execute("SET max_parallel_workers_per_gather = 0")
 
