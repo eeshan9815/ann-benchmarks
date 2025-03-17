@@ -346,7 +346,7 @@ def deep_image(out_fn: str, n = None) -> None:
     fv = fv.reshape(-1, dim + 1)[:, 1:]
 
     if n is not None:
-        fv = fv[np.random.choice(A.shape[0], n, replace=False), :]
+        fv = fv[numpy.random.choice(fv.shape[0], n, replace=False), :]
 
     X_train, X_test = train_test_split(fv)
     write_output(X_train, X_test, out_fn, "angular")
